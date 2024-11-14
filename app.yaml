@@ -1,9 +1,5 @@
 runtime: java17
-instance_class: F2
+env: standard
 
 env_variables:
-  SPRING_PROFILES_ACTIVE: prod
-
-handlers:
-  - url: /.* 
-    script: auto
+  GOOGLE_CLOUD_PROJECT: gleaming-lead-438006-g4

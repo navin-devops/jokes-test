@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class JokeController {
 
-    @GetMapping("/joke")
+    @GetMapping("/")
     public String getJoke() {
         return "Why don't skeletons fight each other? They don't have the guts!";
     }
