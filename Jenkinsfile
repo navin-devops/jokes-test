@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define any environment variables if needed
-        // For example:
+        // Example:
         // MY_ENV_VAR = 'value'
     }
 
@@ -24,7 +24,8 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                // Optional: deploy steps if needed
+                // Optional: Add deployment steps if needed
+                echo 'Deployment step (if necessary) will go here'
             }
         }
     }
