@@ -7,5 +7,7 @@ handlers:
   - url: /favicon.ico
     static_files: /favicon.ico
     upload: favicon.ico
-  - url: /.*  
+  - url: /joke
+    script: auto
+  - url: /.*
     script: auto
