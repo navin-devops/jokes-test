@@ -1,27 +1,35 @@
-package com.example;
-
-import java.io.IOException;
+import java.util.List;
 import java.util.Random;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-public class JokeServlet extends HttpServlet {
-    private static final String[] JOKES = {
-        "Why don't scientists trust atoms? Because they make up everything!",
-        "Why did the scarecrow win an award? Because he was outstanding in his field!",
-        "What do you get if you cross a snowman and a vampire? Frostbite!",
-        "Why did the bicycle fall over? Because it was two-tired!",
-        "How does a penguin build its house? Igloos it together!"
-    };
+public class JokeGenerator {
+    private static final List<String> JOKES = List.of(
+        """
+        Why don't scientists trust atoms?
+        Because they make up everything!
+        """,
+        """
+        What do you get when you cross a snowman and a vampire?
+        Frostbite!
+        """,
+        """
+        Why did the bicycle fall over?
+        Because it was two-tired!
+        """
+    );
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Random random = new Random();
-        String joke = JOKES[random.nextInt(JOKES.length)];
-        
-        resp.setContentType("text/plain");
-        resp.getWriter().println(joke);
+    private final Random random;
+
+    public JokeGenerator() {
+        this.random = new Random();
     }
-} 
+
+    public String getRandomJoke() {
+        return JOKES.get(random.nextInt(JOKES.size()));
+    }
+
+    public static void main(String[] args) {
+        JokeGenerator jokeGenerator = new JokeGenerator();
+        System.out.println("Here's a joke for you:");
+        System.out.println(jokeGenerator.getRandomJoke());
+    }
+}
