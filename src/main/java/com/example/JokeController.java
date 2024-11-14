@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class JokeController {
 
-    @GetMapping("/")
+    @GetMapping("/joke")
     public String getJoke() {
-        return "Why don't skeletons fight each other? They don't have the guts!";
+        // Return the joke in big bold letters
+        return "<h1 style='font-size: 50px; color: #FF5733; font-weight: bold;'>Happy Children's Day Rinuma and the one and only hero Izhaan</h1>";
     }
 }
