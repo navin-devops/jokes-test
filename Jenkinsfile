@@ -9,7 +9,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Example step to clone your repository
-                git 'https://github.com/your-repo/joke-generator-app.git'
+                git 'https://github.com/navin-devops/jokes-test.git'
             }
         }
 
