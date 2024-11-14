@@ -2,22 +2,39 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_ID = 'your-gcp-project-id'
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-service-account')
+        // Set environment variables if needed
     }
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh 'mvn clean package'
+                // Checkout the code from your repository
+                git 'https://github.com/shaiksaleemafroz/cloudruntest.git'
             }
         }
 
-        stage('Deploy to App Engine') {
+        stage('Build') {
             steps {
-                sh "gcloud config set project $PROJECT_ID"
-                sh 'gcloud app deploy --quiet'
+                // Run Maven clean package and deploy to App Engine
+                sh 'mvn clean package appengine:deploy'
             }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Optional: deploy steps if needed
+            }
+        }
+    }
+
+    post {
+        success {
+            // Actions to perform after a successful build
+            echo 'Build and deployment successful!'
+        }
+        failure {
+            // Actions to perform after a failed build
+            echo 'Build or deployment failed.'
         }
     }
 }

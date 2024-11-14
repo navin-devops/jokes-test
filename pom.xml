@@ -14,10 +14,11 @@
     </properties>
 
     <dependencies>
+        <!-- Servlet API for Web applications -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0</version> <!-- Updated to Jakarta Servlet 5.x -->
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -40,6 +41,9 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>2.4.2</version>
+                <configuration>
+                    <appEngineVersion>java17</appEngineVersion> <!-- Ensuring Java 17 compatibility -->
+                </configuration>
             </plugin>
         </plugins>
     </build>
