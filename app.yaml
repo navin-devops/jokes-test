@@ -1,9 +1,9 @@
 runtime: java17
-env: standard
+instance_class: F2
 
 env_variables:
-  JAVA_OPTS: "-Xms512m -Xmx1024m"
+  SPRING_PROFILES_ACTIVE: prod
 
 handlers:
-  - url: /.*  
-    script: this field is required, but ignored
+  - url: /.* 
+    script: auto
