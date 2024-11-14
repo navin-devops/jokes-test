@@ -2,31 +2,24 @@ pipeline {
     agent any
 
     environment {
-        GOOGLE_APPLICATION_CREDENTIALS = '/path/to/your/service-account-key.json'  // Set the path to your GCP service account key
+        PROJECT_ID = 'gleaming-lead-438006-g4'
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-service-account')
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/shaiksaleemafroz/joke-generator-app.git'
-            }
-        }
-
         stage('Build') {
             steps {
-                script {
-                    // Build the project using Maven
-                    sh 'mvn clean install'
-                }
+                // Build the project using Maven
+                sh 'mvn clean package'  // or './mvnw clean package' if using Maven Wrapper
             }
         }
 
         stage('Deploy to App Engine') {
             steps {
-                script {
-                    // Deploy to Google App Engine using the Google Cloud SDK
-                    sh 'gcloud app deploy --quiet'
-                }
+                // Set Google Cloud project
+                sh "gcloud config set project $PROJECT_ID"
+                // Deploy to App Engine
+                sh 'gcloud app deploy --quiet'
             }
         }
     }
