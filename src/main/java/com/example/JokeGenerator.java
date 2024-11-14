@@ -2,6 +2,8 @@ import java.util.List;
 import java.util.Random;
 
 public class JokeGenerator {
+
+    // List of jokes to pick from
     private static final List<String> JOKES = List.of(
         """
         Why don't scientists trust atoms?
@@ -23,13 +25,8 @@ public class JokeGenerator {
         this.random = new Random();
     }
 
+    // Method to get a random joke from the list
     public String getRandomJoke() {
         return JOKES.get(random.nextInt(JOKES.size()));
-    }
-
-    public static void main(String[] args) {
-        JokeGenerator jokeGenerator = new JokeGenerator();
-        System.out.println("Here's a joke for you:");
-        System.out.println(jokeGenerator.getRandomJoke());
     }
 }

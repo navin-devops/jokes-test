@@ -1,37 +1,33 @@
 pipeline {
     agent any
 
+    environment {
+        GOOGLE_APPLICATION_CREDENTIALS = '/path/to/your/service-account-key.json'  // Set the path to your GCP service account key
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from your repository
-                git branch: 'main', url: 'https://github.com/navin-devops/jokes-test.git'
+                git 'https://github.com/shaiksaleemafroz/joke-generator-app.git'
             }
         }
 
         stage('Build') {
             steps {
-                // Run Maven clean package and deploy to App Engine
-                sh 'mvn clean package appengine:deploy'
+                script {
+                    // Build the project using Maven
+                    sh 'mvn clean install'
+                }
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to App Engine') {
             steps {
-                // Optional: Add deployment steps if needed
-                echo 'Deployment step (if necessary) will go here'
+                script {
+                    // Deploy to Google App Engine using the Google Cloud SDK
+                    sh 'gcloud app deploy --quiet'
+                }
             }
-        }
-    }
-
-    post {
-        success {
-            // Actions to perform after a successful build
-            echo 'Build and deployment successful!'
-        }
-        failure {
-            // Actions to perform after a failed build
-            echo 'Build or deployment failed.'
         }
     }
 }

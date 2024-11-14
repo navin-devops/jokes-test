@@ -1,2 +1,11 @@
- runtime: java11
+runtime: java17
 
+env_variables:
+  # Optional: set environment variables here, if needed
+  JAVA_HOME: "/usr/lib/jvm/java-17-openjdk"
+
+instance_class: F2
+
+handlers:
+- url: /.*  # Handles all requests
+  script: this field is required, but ignored
