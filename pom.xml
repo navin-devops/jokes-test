@@ -8,10 +8,17 @@
     <groupId>com.example</groupId>
     <artifactId>joke-generator-app</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging> <!-- Ensure it's 'jar' and not 'war' -->
+    <packaging>war</packaging> <!-- Packaging WAR for servlet-based deployment -->
 
     <name>Joke Generator</name>
     <description>A simple joke generator app for Google App Engine</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.0</version>
+        <relativePath/> <!-- Look for parent in repositories -->
+    </parent>
 
     <properties>
         <java.version>17</java.version>
@@ -50,7 +57,7 @@
 
     <build>
         <plugins>
-            <!-- Compiler Plugin to compile Java code -->
+            <!-- Compiler plugin for Java 17 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -61,31 +68,26 @@
                 </configuration>
             </plugin>
 
-            <!-- Jar Plugin to create JAR file with main class -->
+            <!-- WAR packaging plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.1</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>com.example.JokeServlet</mainClass> <!-- Update this to your main servlet class -->
-                        </manifest>
-                    </archive>
+                    <webXml>${project.basedir}/src/main/webapp/WEB-INF/web.xml</webXml> <!-- Point to web.xml location -->
                 </configuration>
             </plugin>
 
-            <!-- Google Cloud App Engine Plugin -->
+            <!-- App Engine plugin for deployment -->
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>2.2.0</version>
                 <configuration>
-                    <projectId>gleaming-lead-438006-g4</projectId>
+                    <projectId>gleaming-lead-438006-g4</projectId> <!-- Replace with your project ID -->
                     <deployables>
                         <deployable>
-                            <artifact>target/joke-generator-app.jar</artifact> <!-- Ensure the JAR file is correctly specified -->
+                            <artifact>target/joke-generator-app.war</artifact> <!-- WAR file for deployment -->
                         </deployable>
                     </deployables>
                 </configuration>
