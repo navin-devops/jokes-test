@@ -2,27 +2,23 @@ pipeline {
     agent any
 
     environment {
-        // Set environment variables if needed
+        // Define any environment variables if needed
+        // For example:
+        // MY_ENV_VAR = 'value'
     }
 
     stages {
         stage('Checkout') {
             steps {
                 // Checkout the code from your repository
-                git 'https://github.com/shaiksaleemafroz/cloudruntest.git'
+                git 'https://github.com/navin-devops/jokes-test.git'
             }
         }
 
-        stage('Build') {
+        stage('Build & Deploy') {
             steps {
                 // Run Maven clean package and deploy to App Engine
                 sh 'mvn clean package appengine:deploy'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Optional: deploy steps if needed
             }
         }
     }
