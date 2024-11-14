@@ -2,28 +2,38 @@ pipeline {
     agent any
 
     environment {
-        PROJECT_ID = 'gleaming-lead-438006-g4'
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-service-account')  // Ensure the correct secret is being used
+        GOOGLE_CREDENTIALS = credentials('gcp-service-account') // Reference the ID of your credential
     }
 
     stages {
-        stage('Authenticate with Google Cloud') {
+        stage('Clone Repository') {
             steps {
-                sh 'gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}'
-                sh 'gcloud auth list'  // Verify the active account
+                // Example step to clone your repository
+                git 'https://github.com/your-repo/joke-generator-app.git'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                script {
+                    // Build the project using Maven
+                    sh 'mvn clean package'
+                }
             }
         }
 
         stage('Deploy to App Engine') {
             steps {
-                sh "gcloud config set project $PROJECT_ID"
-                sh 'gcloud app deploy --quiet'
+                script {
+                    // Authenticate with Google Cloud
+                    withCredentials([file(credentialsId: 'gcp-service-account', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                        // Use the credentials to authenticate and deploy to Google App Engine
+                        sh '''
+                            gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+                            gcloud app deploy --quiet
+                        '''
+                    }
+                }
             }
         }
     }
