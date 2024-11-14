@@ -1,18 +1,30 @@
 pipeline {
     agent any
 
+    environment {
+        // Define any environment variables if needed
+        // For example:
+        // MY_ENV_VAR = 'value'
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 // Checkout the code from your repository
-                git 'https://github.com/navin-devops/jokes-test.git'
+                git branch: 'main', url: 'https://github.com/navin-devops/jokes-test.git'
             }
         }
 
-        stage('Build & Deploy') {
+        stage('Build') {
             steps {
                 // Run Maven clean package and deploy to App Engine
                 sh 'mvn clean package appengine:deploy'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Optional: deploy steps if needed
             }
         }
     }
