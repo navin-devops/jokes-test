@@ -6,7 +6,7 @@
     <groupId>com.example</groupId>
     <artifactId>joke-generator-app</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging> <!-- Correct packaging type for a JAR file -->
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -24,12 +24,17 @@
 
     <build>
         <plugins>
+            <!-- Remove the maven-war-plugin since we are building a JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <archive>
+                        <manifestEntries>
+                            <Main-Class>com.example.Main</Main-Class> <!-- Specify the main class -->
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
