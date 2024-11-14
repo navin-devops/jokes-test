@@ -13,24 +13,24 @@
     <name>Joke Generator</name>
     <description>A simple joke generator app for Google App Engine</description>
     
-    <!-- Parent POM, could be omitted if not needed -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/> 
     </parent>
 
+    <properties>
+        <java.version>17</java.version> <!-- Set Java 17 -->
+    </properties>
+
     <dependencies>
-        <!-- Servlet API for web application -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Logging dependencies -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -41,16 +41,12 @@
             <artifactId>log4j-core</artifactId>
             <version>2.14.1</version>
         </dependency>
-
-        <!-- JSP Support (if needed) -->
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
             <version>2.3.3</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Google Cloud App Engine SDK -->
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
@@ -61,29 +57,25 @@
 
     <build>
         <plugins>
-            <!-- Maven WAR Plugin to package the application as a WAR file -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.1</version>
                 <configuration>
-                    <!-- Specify that no web.xml is required (App Engine can handle it) -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
 
-            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>17</source> <!-- Set source to Java 17 -->
+                    <target>17</target> <!-- Set target to Java 17 -->
                 </configuration>
             </plugin>
 
-            <!-- App Engine Maven Plugin (Optional) -->
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
@@ -99,9 +91,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
 
 </project>
