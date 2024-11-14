@@ -8,8 +8,8 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                // Example step to clone your repository
-                git 'https://github.com/navin-devops/jokes-test.git'
+                // Clone your repository from GitHub and specify the branch if needed
+                git branch: 'main', url: 'https://github.com/navin-devops/jokes-test.git'
             }
         }
 
@@ -25,7 +25,7 @@ pipeline {
         stage('Deploy to App Engine') {
             steps {
                 script {
-                    // Authenticate with Google Cloud
+                    // Authenticate with Google Cloud using the service account credentials
                     withCredentials([file(credentialsId: 'gcp-service-account', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                         // Use the credentials to authenticate and deploy to Google App Engine
                         sh '''
